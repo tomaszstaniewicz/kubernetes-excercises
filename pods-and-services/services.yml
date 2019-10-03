@@ -1,0 +1,34 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: fleetman-webapp
+
+spec:
+  selector: #selects pod group
+    app: webapp #name of pod group
+
+  ports:
+    - name: http
+      port: 80
+      targetPort: 80 # by default the same as port, so yuu dont have to configure it
+      nodePort: 30080
+
+  type: NodePort # type of service can be LoadBalancer, ClusterIp
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: fleetman-queue
+
+spec:
+  selector: #selects pod group
+    app: queue #name of pod group
+
+  ports:
+    - name: http
+      port: 8161
+      nodePort: 30010
+
+  type: NodePort # type of service can be LoadBalancer, ClusterIp
